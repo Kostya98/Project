@@ -1,15 +1,15 @@
 package ru.mirea;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Response {
     private int offset;
     private int tagPerPage;
     private int tagListSize;
-    private List tagList;
+    private List<Tag> tagList;
 
-    public Response(int offset, int tagPerPage, List tagList) {
+    public Response(int offset, int tagPerPage, List<Tag> tagList) {
         this.offset = offset;
         this.tagPerPage = tagPerPage;
         this.tagListSize = tagList.size();
@@ -28,9 +28,9 @@ public class Response {
         return tagListSize;
     }
 
-    public List getTagList() {
+    public List<Tag> getTagList() {
         if (offset > tagListSize) {
-            return new ArrayList();
+            return Collections.emptyList();
         }
         int end = tagPerPage + offset;
         if (end > tagListSize) {

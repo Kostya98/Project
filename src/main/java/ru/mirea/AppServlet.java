@@ -11,7 +11,7 @@ import java.util.List;
 public class AppServlet extends HttpServlet {
     private Dictionary dictionary = new Dictionary();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private int tagPerPage = 10;
+    private final int TAG_PER_PAGE = 10;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -19,11 +19,8 @@ public class AppServlet extends HttpServlet {
         Object response;
         try {
             String search = req.getParameter("search");
-            List tagList;
+            List<Tag> tagList;
             if (search != null) {
-                if (search.length() < 2) {
-                    throw new Exception("Неправильные параметры запроса");
-                }
                 tagList = dictionary.findTag(search);
             } else {
                 tagList = dictionary.getTag();
@@ -34,13 +31,13 @@ public class AppServlet extends HttpServlet {
                 try {
                     offsetInt = Integer.parseInt(offset);
                 } catch (NumberFormatException e) {
-                    throw new Exception("Неправильные параметры запроса");
+                    throw new InternalException(InternalException.OFFSET_NOT_A_NUMBER);
                 }
                 if (offsetInt < 0) {
-                    throw new Exception("Неправильные параметры запроса");
+                    throw new InternalException(InternalException.OFFSET_IS_NEGATIVE);
                 }
             }
-            response = new Response(offsetInt, tagPerPage, tagList);
+            response = new Response(offsetInt, TAG_PER_PAGE, tagList);
         } catch (Exception e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response = new AppException(e.getMessage());
