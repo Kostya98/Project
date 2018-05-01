@@ -37,9 +37,9 @@ public class Dictionary {
             throw new InternalException(InternalException.MNEMO_LENGTH);
         }
         synchronized (tagList) {
-            Iterator iterator = tagList.iterator();
+            Iterator<Tag> iterator = tagList.iterator();
             while (iterator.hasNext()) {
-                Tag tag = (Tag) iterator.next();
+                Tag tag = iterator.next();
                 if (tag.getMnemo().equals(mnemo)) {
                     iterator.remove();
                     return;
