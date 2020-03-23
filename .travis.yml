@@ -1,11 +1,4 @@
 language: java
-addons:
-  sonarcloud:
-    organization: "xelian-github"
-    token:
-      secure: ${SONAR_TOKEN}
-    branches:
-      - master
-script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner
+rvm:
+ - 2.2
+ - jruby
