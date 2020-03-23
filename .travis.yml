@@ -10,3 +10,6 @@ script:
   — pytest --cov=my_package_name
 after_success:
   — coveralls
+  
+script: "sbt clean coverage test"
+after_success: "sbt coverageReport coveralls"
